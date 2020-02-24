@@ -29,9 +29,9 @@ import os
 import sys
 import time
 import signal
+from abc import ABCMeta, abstractmethod
 
-
-class Daemon(object):
+class Daemon(object, metaclass=ABCMeta):
     """
     A generic daemon class.
 
@@ -240,7 +240,8 @@ class Daemon(object):
             self.log('Process (pid %d) is killed' % pid)
             return False
 
-    def run(self):
+    @abstractmethod
+    def run(self, *args, **kwargs):
         """
         You should override this method when you subclass Daemon.
         It will be called after the process has been
